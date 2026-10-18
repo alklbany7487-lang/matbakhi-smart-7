@@ -1,0 +1,2152 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b25">
+<title>مطبخي الذكي | Smart Kitchen 7.0</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+:root{--ink:#142c26;--muted:#718078;--bg:#f5f6f0;--paper:#fffefa;--green:#176b51;--mint:#c6f277;--line:#e2e8df;--orange:#f3a66b;--shadow:0 18px 55px #173e2b0d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Cairo',system-ui,Tahoma,sans-serif;line-height:1.7}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0;font-weight:800;transition:.2s}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #b3dc65;outline-offset:2px}
+.shell{max-width:1180px;margin:auto;padding:0 22px}
+.topline{height:7px;background:linear-gradient(90deg,var(--mint) 0 35%,var(--green) 35% 100%)}
+header{padding:23px 0 15px}
+.head{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:13px}
+.brandmark{width:54px;height:54px;border-radius:18px;background:var(--ink);color:var(--mint);display:grid;place-items:center;font-size:29px;box-shadow:0 8px 20px #173e2b20}
+.brand h1{font-size:23px;line-height:1.2;margin:0;font-weight:900;letter-spacing:-.5px}
+.brand p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.edition{font-size:11px;font-weight:900;letter-spacing:1px;border:1px solid #d8e1d3;background:#fffefa;border-radius:100px;padding:7px 12px;white-space:nowrap}
+.edition span{color:var(--green)}
+.nav-wrap{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#ffffffb5;position:sticky;top:0;z-index:10;backdrop-filter:blur(15px)}
+nav{display:flex;gap:6px;overflow:auto;padding:10px 0;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{background:transparent;color:#65736b;border-radius:11px;padding:9px 14px;white-space:nowrap;font-size:13px}
+nav button.active{background:var(--ink);color:#fff}
+main{padding-top:25px;padding-bottom:90px}
+.hidden{display:none!important}
+.hero{background:var(--ink);color:white;border-radius:27px;padding:clamp(22px,5vw,48px);position:relative;overflow:hidden;display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:center;min-height:290px;box-shadow:var(--shadow)}
+.hero:before{content:"";position:absolute;width:360px;height:360px;border:1px solid #ffffff14;border-radius:50%;left:-100px;top:-180px;box-shadow:0 0 0 40px #ffffff07,0 0 0 80px #ffffff05}
+.eyebrow{color:var(--mint);font-size:12px;font-weight:900;letter-spacing:1.4px}
+.hero h2{font-size:clamp(30px,5vw,48px);line-height:1.25;margin:13px 0 12px;letter-spacing:-1px}
+.hero h2 em{font-style:normal;color:var(--mint)}
+.hero p{color:#c3d3ca;max-width:500px;font-size:14px;margin:0}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
+.btn-lime{background:var(--mint);color:#172a20;border-radius:13px;padding:12px 18px}
+.btn-glass{background:#ffffff12;color:#fff;border:1px solid #ffffff32;border-radius:13px;padding:11px 17px}
+.btn-lime:hover,.btn-glass:hover,.action:hover{transform:translateY(-2px)}
+.hero-art{min-height:220px;position:relative;display:grid;place-items:center}
+.plate{width:min(245px,70vw);aspect-ratio:1;border-radius:50%;background:#f4f0df;display:grid;place-items:center;box-shadow:0 0 0 14px #ffffff0b,0 0 0 30px #ffffff08;position:relative;z-index:1}
+.plate-inner{width:78%;height:78%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#b8d46b,#477c49 66%,#29583b);border:10px solid #e2dcc8;display:grid;place-items:center;font-size:88px;filter:saturate(.9)}
+.float-note{position:absolute;z-index:2;background:#fffefa;color:var(--ink);padding:10px 13px;border-radius:14px;font-size:11px;font-weight:800;box-shadow:0 10px 28px #0002}
+.float-note b{display:block;font-size:16px;color:var(--green)}
+.note-a{top:18px;right:0}
+.note-b{bottom:12px;left:0}
+.section-heading{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:27px 0 14px}
+.section-heading h2{font-size:23px;margin:0;font-weight:900;letter-spacing:-.5px}
+.section-heading p{margin:2px 0 0;color:var(--muted);font-size:12px}
+.tiny-label{font-size:10px;color:var(--green);font-weight:900;letter-spacing:1px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow);min-width:0}
+.stat-top{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--muted);font-size:12px;font-weight:700}
+.stat-icon{width:35px;height:35px;border-radius:12px;background:#eaf2df;display:grid;place-items:center;font-size:17px}
+.stat-number{font-size:31px;font-weight:900;line-height:1.3;margin-top:10px;letter-spacing:-1px}
+.stat-caption{font-size:11px;color:var(--muted);margin-top:3px}
+.content-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:15px;margin-top:15px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:21px;box-shadow:var(--shadow);min-width:0}
+.panel h3{margin:0;font-size:18px;font-weight:900}
+.panel-sub{font-size:12px;color:var(--muted);margin:4px 0 15px}
+.empty{border:1px dashed #d7e0d5;border-radius:15px;padding:18px;text-align:center;color:var(--muted);font-size:13px}
+.list-item{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:12px 0}
+.list-item:first-child{border-top:0}
+.list-item strong{font-size:13px}
+.list-item small{display:block;color:var(--muted);font-size:11px}
+.tag{display:inline-block;border-radius:8px;background:#edf5e7;color:#3f6d3e;padding:3px 8px;font-size:10px;font-weight:800;white-space:nowrap}
+.tag.warn{background:#fff0d9;color:#9b641c}
+.tag.bad{background:#fde9e7;color:#a83b34}
+.action{background:#edf4e8;color:var(--green);border-radius:11px;padding:9px 13px;font-size:12px}
+.action.dark{background:var(--green);color:white}
+.page-title{background:#e8f0df;border-radius:22px;padding:23px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.page-title h2{margin:0;font-size:26px;font-weight:900}
+.page-title p{margin:3px 0 0;color:#617469;font-size:13px}
+.page-icon{font-size:42px}
+.form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label{font-size:12px;color:var(--muted);font-weight:800}
+.field input,.field select{width:100%;border:1px solid #dce4da;background:#fffefa;color:var(--ink);border-radius:12px;padding:11px 12px;min-width:0}
+.form-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+.notice{border-radius:13px;background:#fff4df;color:#855a1b;padding:12px 14px;font-size:12px;margin:12px 0}
+.success{background:#e8f5e9;color:#236343}
+.camera-box{background:#12231d;border-radius:18px;overflow:hidden;min-height:200px;display:grid;place-items:center;color:white;margin:14px 0}
+.camera-box video,.camera-box canvas{width:100%;max-height:390px;object-fit:contain}
+.camera-placeholder{text-align:center;padding:35px;color:#d2dfd6}
+.camera-placeholder b{display:block;font-size:38px;margin-bottom:5px}
+.button-row{display:flex;flex-wrap:wrap;gap:9px}
+.mic{position:fixed;bottom:18px;left:18px;z-index:20;width:57px;height:57px;border-radius:20px;background:var(--mint);color:var(--ink);font-size:23px;box-shadow:0 10px 30px #102b2530}
+.mic.listening{background:#ffb2a6;animation:pulse 1.1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 10px #f3a66b40}}
+.toast{position:fixed;bottom:88px;left:14px;right:14px;max-width:520px;margin:auto;background:var(--ink);color:#fff;padding:13px 16px;border-radius:14px;z-index:30;box-shadow:var(--shadow);font-size:13px}
+.foot{border-top:1px solid var(--line);padding:20px 0;text-align:center;color:var(--muted);font-size:11px}
+.feature-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.feature{padding:16px;border:1px solid var(--line);border-radius:17px;background:#fffefa}
+.feature .emoji{font-size:23px}
+.feature b{display:block;margin:5px 0;font-size:13px}
+.feature p{margin:0;color:var(--muted);font-size:11px}
+.muted{color:var(--muted)}
+.small{font-size:11px}
+@media(max-width:760px){
+.shell{padding:0 14px}
+.hero{grid-template-columns:1fr;min-height:auto}
+.hero-art{min-height:210px;grid-row:1}
+.hero h2{font-size:34px}
+.hero-content{grid-row:2}
+.plate{width:180px}
+.plate-inner{font-size:65px}
+.note-a{right:7%;top:8px}
+.note-b{left:5%;bottom:3px}
+.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.stat-card{padding:14px}
+.stat-number{font-size:27px}
+.content-grid{grid-template-columns:1fr}
+.form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.feature-row{grid-template-columns:1fr}
+.section-heading h2{font-size:20px}
+.page-title{padding:18px}
+.page-title h2{font-size:22px}
+.edition{font-size:9px;padding:6px 8px}
+.brand h1{font-size:20px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}</style>
+</head>
+<body>
+<div class="topline"></div>
+<header>
+  <div class="shell head">
+    <div class="brand">
+      <div class="brandmark">🌿</div>
+      <div>
+        <h1>مطبخي الذكي</h1>
+        <p>طعام أقل هدرًا، ومطبخ أذكى</p>
+      </div>
+    </div>
+    <div class="edition"><span>SMART KITCHEN</span> · 7.0</div>
+  </div>
+</header>
+
+<div class="nav-wrap">
+  <nav class="shell" id="nav">
+    <button class="active" data-page="home">الرئيسية</button>
+    <button data-page="family">الأسرة</button>
+    <button data-page="inventory">المخزون</button>
+    <button data-page="meals">الوجبات</button>
+    <button data-page="shopping">المتجر الغذائي</button>
+    <button data-page="calendar">الصلاحية والتنبيهات</button>
+    <button data-page="impact">قياس الأثر</button>
+    <button data-page="about">عن المشروع</button>
+  </nav>
+</div>
+
+<main class="shell">
+
+<section id="page-home">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">ابتكار صغير • أثر كبير</div>
+      <h2>طعام أقل هدرًا،<br><em>ومطبخ أذكى.</em></h2>
+      <p>منصة تساعد الأسرة على تنظيم مخزون الطعام، ومتابعة تواريخ الصلاحية، واكتشاف الوجبات المناسبة، والتسوق بوعي أكبر.</p>
+      <div class="hero-actions">
+        <button class="btn-lime" onclick="showPage('inventory')">ابدأ بإضافة المخزون ←</button>
+        <button class="btn-glass" onclick="showPage('about')">اكتشف فكرة المشروع</button>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="float-note note-a">إدارة أذكى <b>🌱 تقليل الهدر</b></div>
+      <div class="plate"><div class="plate-inner">🥗</div></div>
+      <div class="float-note note-b">خطوة صغيرة <b>أثر أكبر</b></div>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <div><h2>نظرة سريعة على مطبخك</h2><p>ملخص يتحدث وفق البيانات التي تسجلها</p></div>
+    <span class="tiny-label">YOUR KITCHEN</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-top">مواد المخزون <span class="stat-icon">📦</span></div>
+      <div class="stat-number" id="stat-inventory">0</div>
+      <div class="stat-caption">مواد غذائية مسجلة</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">قريبة الصلاحية <span class="stat-icon">⏳</span></div>
+      <div class="stat-number" id="stat-expiring">0</div>
+      <div class="stat-caption">تحتاج إلى مراجعة</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">المشتريات <span class="stat-icon">🛒</span></div>
+      <div class="stat-number" id="stat-low">0</div>
+      <div class="stat-caption">مواد بلغت حد الكمية القليلة</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">الأسرة <span class="stat-icon">🏡</span></div>
+      <div class="stat-number" id="stat-family">4</div>
+      <div class="stat-caption">عدد أفراد الأسرة المسجل</div>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="panel">
+      <h3>🔔 تنبيهات الطعام</h3>
+      <p class="panel-sub">تابع المواد التي تحتاج إلى استخدام أو مراجعة قريبًا.</p>
+      <div id="home-alerts"><div class="empty">ستظهر التنبيهات بعد تسجيل مواد المخزون وتواريخها.</div></div>
+      <div class="form-actions">
+        <button class="action dark" onclick="showPage('calendar')">عرض التنبيهات</button>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>🍽️ أفكار للاستفادة من الطعام</h3>
+      <p class="panel-sub">اكتشف وجبات يمكن أن تساعدك على استخدام المكونات الموجودة.</p>
+      <div class="feature-row">
+        <div class="feature"><div class="emoji">🥘</div><b>وجبات متنوعة</b><p>أفكار تناسب تفضيلات الأسرة.</p></div>
+        <div class="feature"><div class="emoji">🇴🇲</div><b>أطباق عُمانية</b><p>اقتراحات للوجبات الشعبية.</p></div>
+        <div class="feature"><div class="emoji">♻️</div><b>تقليل الهدر</b><p>استفد مما لديك أولًا.</p></div>
+      </div>
+      <div class="form-actions">
+        <button class="action dark" onclick="showPage('meals')">اكتشف الوجبات</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="page-family" class="hidden">
+  <div class="page-title">
+    <div><h2>ملف الأسرة</h2><p>خصّص الاقتراحات وفق احتياجات أسرتك.</p></div>
+    <div class="page-icon">🏡</div>
+  </div>
+  <div class="panel">
+    <h3>بيانات الأسرة</h3>
+    <p class="panel-sub">تُحفظ البيانات في المتصفح المستخدم.</p>
+    <div class="form-grid">
+      <div class="field"><label for="family-count">عدد أفراد الأسرة</label><input id="family-count" type="number" min="1" max="30" value="4"></div>
+      <div class="field"><label for="family-budget">الميزانية الأسبوعية (ر.ع.)</label><input id="family-budget" type="number" min="0" step="0.5" value="30"></div>
+      <div class="field"><label for="family-meals">الوجبات اليومية</label><select id="family-meals"><option value="3">3 وجبات</option><option value="2">وجبتان</option><option value="4">4 وجبات</option></select></div>
+      <div class="field"><label for="family-fav">الأطعمة المفضلة</label><input id="family-fav" value="الدجاج، السمك، الأرز، الخضروات" placeholder="مثال: الدجاج، السمك"></div>
+      <div class="field"><label for="family-dislike">أطعمة لا تفضلها الأسرة</label><input id="family-dislike" placeholder="اختياري"></div>
+    </div>
+    <div class="form-actions"><button class="action dark" onclick="saveFamily()">حفظ بيانات الأسرة</button></div>
+  </div>
+</section>
+
+<section id="page-inventory" class="hidden">
+  <div class="page-title">
+    <div><h2>مخزون المطبخ</h2><p>سجّل المواد والكميات وتواريخ الصلاحية الفعلية.</p></div>
+    <div class="page-icon">📦</div>
+  </div>
+  <div class="panel">
+    <h3>إضافة مادة إلى المخزون</h3>
+    <p class="panel-sub">أدخل تاريخ الصلاحية من العبوة. التاريخ المقترح ليس بديلًا عن تاريخ الشركة.</p>
+    <div class="form-grid">
+      <div class="field"><label for="item-name">اسم المادة الغذائية</label><input id="item-name" placeholder="مثال: الحليب"></div>
+      <div class="field"><label for="item-qty">الكمية الموجودة</label><input id="item-qty" type="number" min="0.01" step="0.01" value="1"></div>
+      <div class="field"><label for="item-unit">الوحدة</label><select id="item-unit"><option>حبة</option><option>كغ</option><option>غرام</option><option>لتر</option><option>مل</option><option>علبة</option><option>كيس</option><option>عبوة</option><option>رأس</option><option>ربطة</option><option>شريحة</option></select></div>
+      <div class="field"><label for="item-expiry">تاريخ انتهاء الصلاحية</label><input id="item-expiry" type="date"></div>
+      <div class="field"><label for="item-category">التصنيف</label><select id="item-category"><option>خضروات وفواكه</option><option>ألبان</option><option>بروتين</option><option>حبوب ونشويات</option><option>معلبات</option><option>مجمدات غذائية</option><option>زيوت وخل غذائي</option><option>أخرى</option></select></div>
+      <div class="field"><label for="item-price">السعر التقديري للوحدة (ر.ع.)</label><input id="item-price" type="number" min="0" step="0.001" placeholder="اختياري"></div>
+    </div>
+    <div class="form-actions">
+      <button class="action dark" onclick="addInventoryItem()">＋ إضافة إلى المخزون</button>
+      <button class="action" onclick="suggestExpiryForInput()">اقتراح تاريخ تقريبي</button>
+    </div>
+    <div class="notice">التواريخ التقديرية مجرد تذكير تقريبي. اتبع ملصق العبوة وتعليمات التخزين، ولا تستخدم طعامًا تشك في سلامته.</div>
+  </div>
+  <div class="panel" style="margin-top:15px">
+    <h3>المواد المسجلة</h3>
+    <p class="panel-sub">راجع الكميات وتواريخ الصلاحية وعدّلها عند الحاجة.</p>
+    <div id="inventory-list"><div class="empty">لا توجد مواد مسجلة بعد.</div></div>
+  </div>
+</section><section id="page-meals" class="hidden">
+  <div class="page-title">
+    <div>
+      <h2>اقتراح الوجبات 🍽️</h2>
+      <p>اكتشف وجبات متنوعة تستفيد من مكونات مخزونك.</p>
+    </div>
+    <div class="page-icon">🥘</div>
+  </div>
+
+  <div class="panel">
+    <h3>ماذا تريد أن تطبخ اليوم؟</h3>
+    <p class="panel-sub">اختر تفضيلاتك للحصول على اقتراحات مناسبة.</p>
+
+    <div class="form-grid">
+      <div class="field">
+        <label for="meal-time">الوجبة المطلوبة</label>
+        <select id="meal-time">
+          <option value="الغداء">الغداء</option>
+          <option value="العشاء">العشاء</option>
+          <option value="الفطور">الفطور</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="meal-style">نوع الوجبة</label>
+        <select id="meal-style">
+          <option value="all">جميع أنواع الوجبات</option>
+          <option value="popular">وجبة شعبية عُمانية</option>
+          <option value="quick">وجبة سريعة</option>
+          <option value="vegetarian">وجبة نباتية</option>
+          <option value="chicken">وجبة بالدجاج</option>
+          <option value="fish">وجبة بالسمك</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="action dark" onclick="suggestMeals()">اقترح وجبات مناسبة</button>
+    </div>
+
+    <div id="meal-results">
+      <div class="empty">ستظهر اقتراحات الوجبات هنا.</div>
+    </div>
+  </div>
+</section>
+
+<section id="page-shopping" class="hidden">
+  <div class="page-title">
+    <div>
+      <h2>المتجر الغذائي 🛒</h2>
+      <p>تصفّح المواد الغذائية، وأضف احتياجاتك إلى سلة المشتريات.</p>
+    </div>
+    <div class="page-icon">🥬</div>
+  </div>
+
+  <div class="panel">
+    <h3>ابحث عن المنتجات</h3>
+    <div class="form-grid">
+      <div class="field">
+        <label for="shop-search">اسم المادة الغذائية</label>
+        <input id="shop-search" type="search" placeholder="مثال: حليب، أرز، تفاح..." oninput="renderShop()">
+      </div>
+      <div class="field">
+        <label for="shop-category">التصنيف</label>
+        <select id="shop-category" onchange="renderShop()">
+          <option value="all">جميع المواد الغذائية</option>
+          <option value="خضروات وفواكه">الخضروات والفواكه</option>
+          <option value="ألبان">الألبان والأجبان</option>
+          <option value="بروتين">اللحوم والأسماك والبيض</option>
+          <option value="حبوب ونشويات">الأرز والحبوب والنشويات</option>
+          <option value="معلبات">المعلبات الغذائية</option>
+          <option value="مجمدات غذائية">المجمدات الغذائية</option>
+          <option value="زيوت وخل غذائي">الزيوت والخل الغذائي</option>
+          <option value="أخرى">مواد غذائية أخرى</option>
+        </select>
+      </div>
+    </div>
+    <div class="section-heading">
+      <div>
+        <h3>المنتجات الغذائية</h3>
+        <p class="panel-sub">اختر المنتجات التي تحتاجها.</p>
+      </div>
+      <span class="tiny-label" id="shop-count">المنتجات</span>
+    </div>
+    <div id="shop-products" class="product-grid">
+      <div class="empty">سيتم عرض المنتجات هنا.</div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:15px">
+    <div class="section-heading">
+      <div>
+        <h3>سلة المشتريات</h3>
+        <p class="panel-sub">راجع الكميات قبل إرسال طلبك.</p>
+      </div>
+      <div class="page-icon">🧺</div>
+    </div>
+    <div id="shopping-cart">
+      <div class="empty">سلة المشتريات فارغة حاليًا.</div>
+    </div>
+    <div class="form-actions">
+      <button class="action dark" onclick="sendWhatsAppOrder()">إرسال الطلب عبر واتساب</button>
+      <button class="action" onclick="clearCart()">إفراغ السلة</button>
+    </div>
+    <p class="panel-sub">يُفتح واتساب لإرسال تفاصيل الطلب إلى المتجر. لا يتم الدفع تلقائيًا، ويعتمد توفر المنتجات والتوصيل على المتجر.</p>
+  </div>
+
+  <div class="panel" style="margin-top:15px">
+    <h3>قائمة الاحتياجات</h3>
+    <p class="panel-sub">تظهر هنا المواد التي تحتاج الأسرة إلى شرائها، ويمكن نقلها إلى المخزون بعد الشراء.</p>
+    <div id="purchase-list">
+      <div class="empty">ستظهر احتياجاتك هنا.</div>
+    </div>
+  </div>
+</section>
+
+<section id="page-calendar" class="hidden">
+  <div class="page-title">
+    <div>
+      <h2>الصلاحية والتنبيهات ⏳</h2>
+      <p>تابع تواريخ المواد الغذائية المسجلة في مخزونك.</p>
+    </div>
+    <div class="page-icon">📅</div>
+  </div>
+
+  <div class="panel">
+    <h3>حالة المخزون</h3>
+    <p class="panel-sub">يعتمد التقييم على تاريخ الصلاحية الذي أدخلته.</p>
+    <div id="expiry-list">
+      <div class="empty">أضف مواد إلى المخزون لتظهر حالة الصلاحية.</div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:15px">
+    <h3>تذكير مهم</h3>
+    <p>تظهر التنبيهات داخل الموقع عند فتحه وتحديث بياناته. هذا الإصدار لا يضمن إرسال إشعارات إلى الهاتف عندما يكون الموقع مغلقًا؛ لذلك يلزم إعداد إشعارات النظام بصورة مستقلة إذا أردت تنبيهات خارج الموقع.</p>
+  </div>
+</section>
+
+<section id="page-impact" class="hidden">
+  <div class="page-title">
+    <div>
+      <h2>قياس الأثر ♻️</h2>
+      <p>تابع كيفية تنظيم المشتريات والاستفادة من الطعام.</p>
+    </div>
+    <div class="page-icon">🌱</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-top">مواد المخزون</div>
+      <div class="stat-number" id="impact-items">0</div>
+      <div class="stat-caption">مواد مسجلة حاليًا</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">مواد المشتريات</div>
+      <div class="stat-number" id="impact-shopping">0</div>
+      <div class="stat-caption">احتياجات مسجلة</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">قريبة الصلاحية</div>
+      <div class="stat-number" id="impact-expiry">0</div>
+      <div class="stat-caption">مواد تستحق المراجعة</div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:15px">
+    <h3>كيف يساعد المشروع؟</h3>
+    <div class="feature-row">
+      <div class="feature">
+        <div class="emoji">📋</div>
+        <b>تنظيم أفضل</b>
+        <p>معرفة المواد المتوفرة قبل التسوق.</p>
+      </div>
+      <div class="feature">
+        <div class="emoji">⏰</div>
+        <b>انتباه للصلاحية</b>
+        <p>تذكّر مراجعة المواد القريبة من انتهاء الصلاحية.</p>
+      </div>
+      <div class="feature">
+        <div class="emoji">🛍️</div>
+        <b>تسوق واعٍ</b>
+        <p>تقليل تكرار شراء المواد الموجودة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="page-about" class="hidden">
+  <div class="page-title">
+    <div>
+      <h2>عن مشروع مطبخي الذكي</h2>
+      <p>حل رقمي لدعم الاستخدام المسؤول للطعام.</p>
+    </div>
+    <div class="page-icon">💡</div>
+  </div>
+
+  <div class="panel">
+    <h3>فكرة المشروع</h3>
+    <p>مطبخي الذكي منصة رقمية تساعد الأسرة على تسجيل المواد الغذائية وكمياتها وتواريخ صلاحيتها، وتنظيم قائمة المشتريات، واستكشاف أفكار للوجبات باستخدام الطعام المتوفر.</p>
+
+    <div class="divider"></div>
+
+    <h3>المشكلة التي يعالجها</h3>
+    <p>قد تنسى الأسرة بعض المواد الموجودة لديها أو تشتري كميات إضافية، مما قد يؤدي إلى تلف الطعام وزيادة المصروفات.</p>
+
+    <div class="divider"></div>
+
+    <h3>الحل المقترح</h3>
+    <p>يجمع الموقع المخزون وتواريخ الصلاحية والوجبات وقائمة التسوق في مكان واحد، ويساعد المستخدم على اتخاذ قرارات أكثر تنظيمًا.</p>
+
+    <div class="divider"></div>
+
+    <h3>الهدف البيئي والاقتصادي</h3>
+    <p>تشجيع التخطيط قبل الشراء، والاستفادة من الطعام الموجود، ورفع الوعي بأهمية الحد من هدر الغذاء.</p>
+  </div>
+</section><script>
+"use strict";
+
+/* =========================================
+   مطبخي الذكي 7.0
+   قاعدة بيانات المنتجات الغذائية
+========================================= */
+
+const STORE_PHONE = "96891778809";
+const STORAGE_KEY = "matbakhi_smart_7_0_data";
+
+const foodProducts = [
+  ["طماطم","خضروات وفواكه","كغ",0.600],
+  ["بطاطس","خضروات وفواكه","كغ",0.500],
+  ["بصل","خضروات وفواكه","كغ",0.450],
+  ["ثوم","خضروات وفواكه","كغ",1.200],
+  ["خيار","خضروات وفواكه","كغ",0.700],
+  ["جزر","خضروات وفواكه","كغ",0.600],
+  ["خس","خضروات وفواكه","حبة",0.500],
+  ["فلفل أخضر","خضروات وفواكه","كغ",1.000],
+  ["فلفل أحمر","خضروات وفواكه","كغ",1.200],
+  ["باذنجان","خضروات وفواكه","كغ",0.700],
+  ["كوسا","خضروات وفواكه","كغ",0.800],
+  ["قرنبيط","خضروات وفواكه","حبة",0.800],
+  ["بروكلي","خضروات وفواكه","حبة",1.000],
+  ["ملفوف","خضروات وفواكه","حبة",0.700],
+  ["سبانخ","خضروات وفواكه","ربطة",0.500],
+  ["بقدونس","خضروات وفواكه","ربطة",0.200],
+  ["كزبرة","خضروات وفواكه","ربطة",0.200],
+  ["ليمون","خضروات وفواكه","كغ",0.800],
+  ["زنجبيل","خضروات وفواكه","كغ",1.500],
+  ["فطر","خضروات وفواكه","علبة",0.800],
+  ["ذرة طازجة","خضروات وفواكه","حبة",0.300],
+  ["فاصوليا خضراء","خضروات وفواكه","كغ",1.000],
+  ["قرع","خضروات وفواكه","كغ",0.700],
+  ["فجل","خضروات وفواكه","ربطة",0.400],
+  ["بامية","خضروات وفواكه","كغ",1.200],
+
+  ["تفاح أحمر","خضروات وفواكه","كغ",1.200],
+  ["تفاح أخضر","خضروات وفواكه","كغ",1.300],
+  ["موز","خضروات وفواكه","كغ",0.800],
+  ["برتقال","خضروات وفواكه","كغ",0.900],
+  ["مانجو","خضروات وفواكه","كغ",1.500],
+  ["عنب","خضروات وفواكه","كغ",1.600],
+  ["فراولة","خضروات وفواكه","علبة",1.200],
+  ["بطيخ","خضروات وفواكه","حبة",2.000],
+  ["شمام","خضروات وفواكه","حبة",1.200],
+  ["أناناس","خضروات وفواكه","حبة",1.000],
+  ["كيوي","خضروات وفواكه","كغ",2.000],
+  ["خوخ","خضروات وفواكه","كغ",1.500],
+  ["كمثرى","خضروات وفواكه","كغ",1.300],
+  ["رمان","خضروات وفواكه","كغ",1.500],
+  ["تمر","خضروات وفواكه","علبة",1.000],
+  ["بابايا","خضروات وفواكه","حبة",1.000],
+  ["جوافة","خضروات وفواكه","كغ",1.200],
+  ["أفوكادو","خضروات وفواكه","حبة",0.700],
+  ["توت","خضروات وفواكه","علبة",1.500],
+  ["يوسفي","خضروات وفواكه","كغ",0.900],
+  ["مشمش","خضروات وفواكه","كغ",1.400],
+  ["كرز","خضروات وفواكه","علبة",2.000],
+  ["تين","خضروات وفواكه","علبة",1.500],
+  ["جوز هند","خضروات وفواكه","حبة",0.800],
+
+  ["حليب كامل الدسم","ألبان","لتر",0.700],
+  ["حليب قليل الدسم","ألبان","لتر",0.700],
+  ["حليب خالٍ من اللاكتوز","ألبان","لتر",1.000],
+  ["حليب طويل الأجل","ألبان","لتر",0.650],
+  ["لبن","ألبان","لتر",0.700],
+  ["زبادي","ألبان","علبة",0.150],
+  ["زبادي يوناني","ألبان","علبة",0.650],
+  ["لبنة","ألبان","علبة",0.800],
+  ["جبن شيدر","ألبان","عبوة",1.200],
+  ["جبن موزاريلا","ألبان","عبوة",1.300],
+  ["جبن كريمي","ألبان","علبة",0.900],
+  ["جبن فيتا","ألبان","علبة",1.100],
+  ["جبن حلوم","ألبان","عبوة",1.200],
+  ["جبن مثلثات","ألبان","علبة",0.800],
+  ["قشطة","ألبان","علبة",0.500],
+  ["كريمة طبخ","ألبان","علبة",0.700],
+  ["زبدة","ألبان","عبوة",1.000],
+  ["بيض","ألبان","علبة",1.200],
+  ["حليب مكثف","ألبان","علبة",0.650],
+  ["حليب بودرة","ألبان","علبة",2.000],
+  ["لبن رائب","ألبان","لتر",0.650],
+  ["جبن بارميزان","ألبان","عبوة",1.800],
+  ["جبن قريش","ألبان","علبة",0.800],
+  ["آيس كريم","ألبان","علبة",1.500],
+  ["حليب خالي الدسم","ألبان","لتر",0.700],
+
+  ["دجاج كامل","بروتين","كغ",2.500],
+  ["صدور دجاج","بروتين","كغ",3.000],
+  ["أفخاذ دجاج","بروتين","كغ",2.500],
+  ["أجنحة دجاج","بروتين","كغ",2.000],
+  ["لحم بقري","بروتين","كغ",4.000],
+  ["لحم غنم","بروتين","كغ",5.000],
+  ["لحم مفروم","بروتين","كغ",3.500],
+  ["سمك شعري","بروتين","كغ",3.000],
+  ["سمك كنعد","بروتين","كغ",3.500],
+  ["سمك هامور","بروتين","كغ",5.000],
+  ["سلمون","بروتين","كغ",5.000],
+  ["سردين","بروتين","كغ",2.000],
+  ["روبيان","بروتين","كغ",4.000],
+  ["تونة طازجة","بروتين","كغ",4.000],
+  ["فيليه سمك","بروتين","كغ",3.000],
+  ["تونة معلبة","بروتين","علبة",0.600],
+  ["سردين معلب","بروتين","علبة",0.500],
+  ["سجق","بروتين","عبوة",1.500],
+  ["لحم حبش","بروتين","كغ",3.500],
+  ["كبدة","بروتين","كغ",2.500],
+  ["بيض بلدي","بروتين","علبة",1.500],
+  ["عدس","بروتين","كغ",1.000],
+  ["حمص جاف","بروتين","كغ",1.000],
+  ["فاصوليا بيضاء جافة","بروتين","كغ",1.200],
+  ["فول جاف","بروتين","كغ",1.000],
+
+  ["أرز بسمتي","حبوب ونشويات","كغ",1.200],
+  ["أرز مصري","حبوب ونشويات","كغ",0.800],
+  ["أرز بني","حبوب ونشويات","كغ",1.500],
+  ["طحين أبيض","حبوب ونشويات","كغ",0.500],
+  ["طحين قمح كامل","حبوب ونشويات","كغ",0.800],
+  ["شوفان","حبوب ونشويات","عبوة",1.000],
+  ["معكرونة سباغيتي","حبوب ونشويات","عبوة",0.500],
+  ["معكرونة أقلام","حبوب ونشويات","عبوة",0.500],
+  ["شعيرية","حبوب ونشويات","عبوة",0.300],
+  ["برغل","حبوب ونشويات","كغ",0.900],
+  ["كسكس","حبوب ونشويات","عبوة",0.900],
+  ["خبز عربي","حبوب ونشويات","كيس",0.300],
+  ["خبز أسمر","حبوب ونشويات","كيس",0.700],
+  ["خبز البروتين","حبوب ونشويات","كيس",1.200],
+  ["توست أبيض","حبوب ونشويات","كيس",0.600],
+  ["توست حبوب كاملة","حبوب ونشويات","كيس",0.800],
+  ["خبز رقاق","حبوب ونشويات","كيس",0.500],
+  ["خبز براتا","حبوب ونشويات","كيس",1.000],
+  ["ذرة جافة","حبوب ونشويات","كغ",0.800],
+  ["كينوا","حبوب ونشويات","عبوة",2.000],
+  ["حبوب إفطار","حبوب ونشويات","علبة",1.200],
+  ["نشا الذرة","حبوب ونشويات","علبة",0.400],
+  ["سميد","حبوب ونشويات","كغ",0.700],
+  ["خميرة خبز","حبوب ونشويات","عبوة",0.300],
+  ["دقيق الذرة","حبوب ونشويات","كغ",0.800],
+
+  ["فاصوليا معلبة","معلبات","علبة",0.500],
+  ["حمص معلب","معلبات","علبة",0.500],
+  ["ذرة معلبة","معلبات","علبة",0.450],
+  ["بازلاء معلبة","معلبات","علبة",0.450],
+  ["طماطم معلبة","معلبات","علبة",0.500],
+  ["معجون طماطم","معلبات","علبة",0.250],
+  ["حليب جوز الهند","معلبات","علبة",0.700],
+  ["فطر معلب","معلبات","علبة",0.500],
+  ["أناناس معلب","معلبات","علبة",0.800],
+  ["فواكه مشكلة معلبة","معلبات","علبة",0.900],
+  ["زيتون","معلبات","علبة",0.800],
+  ["مخلل خيار","معلبات","علبة",0.700],
+  ["صلصة باستا","معلبات","علبة",0.800],
+  ["مرق دجاج","معلبات","علبة",0.600],
+  ["مرق خضروات","معلبات","علبة",0.600],
+  ["فول معلب","معلبات","علبة",0.500],
+  ["عدس معلب","معلبات","علبة",0.600],
+  ["تونة بالماء","معلبات","علبة",0.650],
+  ["تونة بالزيت","معلبات","علبة",0.700],
+  ["فلفل مخلل","معلبات","علبة",0.700],
+  ["صلصة كاري","معلبات","علبة",0.800],
+  ["هريس معلب","معلبات","علبة",0.700],
+  ["فاصوليا حمراء معلبة","معلبات","علبة",0.550],
+  ["فلفل حلو معلب","معلبات","علبة",0.650],
+  ["عصير طماطم معلب","معلبات","علبة",0.500],
+
+  ["بازلاء مجمدة","مجمدات غذائية","كيس",0.900],
+  ["ذرة مجمدة","مجمدات غذائية","كيس",0.900],
+  ["خضروات مشكلة مجمدة","مجمدات غذائية","كيس",1.000],
+  ["سبانخ مجمدة","مجمدات غذائية","كيس",0.800],
+  ["فراولة مجمدة","مجمدات غذائية","كيس",1.500],
+  ["مانجو مجمدة","مجمدات غذائية","كيس",1.500],
+  ["بطاطس مقلية مجمدة","مجمدات غذائية","كيس",1.200],
+  ["سمبوسة مجمدة","مجمدات غذائية","علبة",1.500],
+  ["ملوخية مجمدة","مجمدات غذائية","كيس",0.800],
+  ["بامية مجمدة","مجمدات غذائية","كيس",1.000],
+  ["دجاج مجمد","مجمدات غذائية","كغ",2.300],
+  ["فيليه سمك مجمد","مجمدات غذائية","كغ",2.500],
+  ["روبيان مجمد","مجمدات غذائية","كغ",3.500],
+  ["عجينة بيتزا مجمدة","مجمدات غذائية","عبوة",1.000],
+  ["معجنات جبن مجمدة","مجمدات غذائية","علبة",1.500],
+  ["آيس كريم فواكه","مجمدات غذائية","علبة",1.200],
+  ["توت مجمد","مجمدات غذائية","كيس",1.600],
+  ["خبز مجمد","مجمدات غذائية","كيس",0.800],
+  ["برغر لحم مجمد","مجمدات غذائية","علبة",2.000],
+  ["برغر دجاج مجمد","مجمدات غذائية","علبة",1.500],
+  ["خضروات شوربة مجمدة","مجمدات غذائية","كيس",0.900],
+  ["عجينة رقاق مجمدة","مجمدات غذائية","عبوة",1.000],
+  ["فطائر سبانخ مجمدة","مجمدات غذائية","علبة",1.500],
+  ["أصابع سمك مجمدة","مجمدات غذائية","علبة",1.500],
+  ["بطاطا حلوة مجمدة","مجمدات غذائية","كيس",1.200],
+
+  ["زيت زيتون","زيوت وخل غذائي","لتر",4.000],
+  ["زيت دوار الشمس","زيوت وخل غذائي","لتر",1.500],
+  ["زيت الذرة","زيوت وخل غذائي","لتر",1.700],
+  ["زيت جوز الهند","زيوت وخل غذائي","عبوة",2.000],
+  ["خل أبيض","زيوت وخل غذائي","لتر",0.600],
+  ["خل التفاح","زيوت وخل غذائي","عبوة",1.000],
+  ["صلصة الصويا","زيوت وخل غذائي","عبوة",1.000],
+  ["طحينة","زيوت وخل غذائي","علبة",1.200],
+  ["عسل","أخرى","علبة",2.000],
+  ["سكر أبيض","أخرى","كغ",0.500],
+  ["سكر بني","أخرى","كغ",0.800],
+  ["ملح","أخرى","عبوة",0.250],
+  ["فلفل أسود","أخرى","عبوة",0.500],
+  ["كمون","أخرى","عبوة",0.500],
+  ["كركم","أخرى","عبوة",0.400],
+  ["قرفة","أخرى","عبوة",0.500],
+  ["هيل","أخرى","عبوة",1.000],
+  ["بهارات مشكلة","أخرى","عبوة",0.700],
+  ["زعفران","أخرى","عبوة",2.000],
+  ["ماء ورد غذائي","أخرى","عبوة",0.600],
+  ["كاكاو بودرة","أخرى","عبوة",1.000],
+  ["شوكولاتة للطبخ","أخرى","عبوة",1.200],
+  ["زبدة الفول السوداني","أخرى","علبة",1.500],
+  ["مربى الفراولة","أخرى","علبة",0.800],
+  ["مكسرات مشكلة","أخرى","عبوة",2.000]
+].map((p, i) => ({
+  id: i + 1,
+  name: p[0],
+  category: p[1],
+  unit: p[2],
+  price: p[3]
+}));
+
+/* =========================================
+   البيانات المحفوظة
+========================================= */
+
+function freshData() {
+  return {
+    family: {
+      count: 4,
+      budget: 30,
+      meals: "3",
+      fav: "الدجاج، السمك، الأرز، الخضروات",
+      dislike: ""
+    },
+    inventory: [],
+    shopping: [],
+    cart: []
+  };
+}
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return freshData();
+
+    const parsed = JSON.parse(saved);
+    const defaults = freshData();
+
+    return {
+      family: { ...defaults.family, ...(parsed.family || {}) },
+      inventory: Array.isArray(parsed.inventory) ? parsed.inventory : [],
+      shopping: Array.isArray(parsed.shopping) ? parsed.shopping : [],
+      cart: Array.isArray(parsed.cart) ? parsed.cart : []
+    };
+  } catch (error) {
+    console.warn("تعذر تحميل البيانات المحفوظة:", error);
+    return freshData();
+  }
+}
+
+let appData = loadData();
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+    return true;
+  } catch (error) {
+    alert("تعذر حفظ البيانات في المتصفح. تحقق من مساحة التخزين وإعدادات المتصفح.");
+    console.error(error);
+    return false;
+  }
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function makeId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+}
+
+function normalizeText(value) {
+  return String(value || "").trim().toLocaleLowerCase("ar");
+}
+
+function showPage(name) {
+  document.querySelectorAll("main section[id^='page-']").forEach(section => {
+    section.classList.add("hidden");
+  });
+
+  const target = document.getElementById("page-" + name);
+  if (target) target.classList.remove("hidden");
+
+  document.querySelectorAll("#nav button").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === name);
+  });
+
+  if (name === "inventory") renderInventory();
+  if (name === "shopping") {
+    renderShop();
+    renderCart();
+    renderPurchaseList();
+  }
+  if (name === "calendar") renderExpiry();
+  if (name === "home" || name === "impact") updateDashboard();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("nav").addEventListener("click", event => {
+  const button = event.target.closest("button[data-page]");
+  if (button) showPage(button.dataset.page);
+});
+
+/* =========================================
+   بيانات الأسرة
+========================================= */
+
+function saveFamily() {
+  const count = Number(document.getElementById("family-count").value);
+  const budget = Number(document.getElementById("family-budget").value);
+
+  if (!Number.isInteger(count) || count < 1 || count > 30) {
+    alert("أدخل عددًا صحيحًا لأفراد الأسرة بين 1 و30.");
+    return;
+  }
+
+  if (!Number.isFinite(budget) || budget < 0) {
+    alert("أدخل ميزانية صحيحة.");
+    return;
+  }
+
+  appData.family = {
+    count,
+    budget,
+    meals: document.getElementById("family-meals").value,
+    fav: document.getElementById("family-fav").value.trim(),
+    dislike: document.getElementById("family-dislike").value.trim()
+  };
+
+  if (saveData()) {
+    alert("تم حفظ بيانات الأسرة.");
+    updateDashboard();
+  }
+}
+
+function loadFamilyForm() {
+  const f = appData.family;
+  document.getElementById("family-count").value = f.count;
+  document.getElementById("family-budget").value = f.budget;
+  document.getElementById("family-meals").value = f.meals;
+  document.getElementById("family-fav").value = f.fav;
+  document.getElementById("family-dislike").value = f.dislike;
+}
+
+/* =========================================
+   إدارة المخزون
+========================================= */
+
+function addInventoryItem() {
+  const name = document.getElementById("item-name").value.trim();
+  const qty = Number(document.getElementById("item-qty").value);
+  const unit = document.getElementById("item-unit").value;
+  const expiry = document.getElementById("item-expiry").value;
+  const category = document.getElementById("item-category").value;
+  const priceInput = document.getElementById("item-price").value;
+  const price = priceInput === "" ? null : Number(priceInput);
+
+  if (!name) {
+    alert("اكتب اسم المادة الغذائية.");
+    return;
+  }
+
+  if (!Number.isFinite(qty) || qty <= 0) {
+    alert("أدخل كمية أكبر من صفر.");
+    return;
+  }
+
+  if (expiry && !/^\d{4}-\d{2}-\d{2}$/.test(expiry)) {
+    alert("تحقق من تاريخ الصلاحية.");
+    return;
+  }
+
+  if (price !== null && (!Number.isFinite(price) || price < 0)) {
+    alert("تحقق من السعر.");
+    return;
+  }
+
+  const existing = appData.inventory.find(item =>
+    normalizeText(item.name) === normalizeText(name) &&
+    item.unit === unit &&
+    item.expiry === expiry
+  );
+
+  if (existing) {
+    existing.qty = Number(existing.qty) + qty;
+    existing.category = category;
+    if (price !== null) existing.price = price;
+  } else {
+    appData.inventory.push({
+      id: makeId(),
+      name,
+      qty,
+      unit,
+      expiry,
+      category,
+      price,
+      addedAt: new Date().toISOString()
+    });
+  }
+
+  document.getElementById("item-name").value = "";
+  document.getElementById("item-qty").value = "1";
+  document.getElementById("item-expiry").value = "";
+  document.getElementById("item-price").value = "";
+
+  saveData();
+  syncLowStock();
+  renderInventory();
+  renderPurchaseList();
+  renderExpiry();
+  updateDashboard();
+  alert("تمت إضافة المادة إلى المخزون.");
+}
+
+function removeInventoryItem(id) {
+  const item = appData.inventory.find(x => x.id === id);
+  if (!item) return;
+
+  if (!confirm("هل تريد حذف " + item.name + " من المخزون؟")) return;
+
+  appData.inventory = appData.inventory.filter(x => x.id !== id);
+  saveData();
+  syncLowStock();
+  renderInventory();
+  renderPurchaseList();
+  renderExpiry();
+  updateDashboard();
+}
+
+function changeInventoryQty(id, delta) {
+  const item = appData.inventory.find(x => x.id === id);
+  if (!item) return;
+
+  const next = Math.max(0, Number(item.qty) + delta);
+
+  if (next <= 0) {
+    if (confirm("أصبحت الكمية صفرًا. هل تريد إزالة المادة من المخزون؟")) {
+      appData.inventory = appData.inventory.filter(x => x.id !== id);
+    } else {
+      item.qty = 0.01;
+    }
+  } else {
+    item.qty = Math.round(next * 1000) / 1000;
+  }
+
+  saveData();
+  syncLowStock();
+  renderInventory();
+  renderPurchaseList();
+  updateDashboard();
+}
+
+function getExpiryStatus(dateString) {
+  if (!dateString) return { label: "لم يُسجّل التاريخ", className: "neutral", days: null };
+
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  const expiry = new Date(dateString + "T00:00:00");
+  if (Number.isNaN(expiry.getTime())) {
+    return { label: "تاريخ غير صالح", className: "neutral", days: null };
+  }
+
+  const days = Math.round((expiry.getTime() - now.getTime()) / 86400000);
+
+  if (days < 0) return { label: "انتهى التاريخ المسجّل", className: "danger", days };
+  if (days === 0) return { label: "التاريخ اليوم", className: "warning", days };
+  if (days <= 3) return { label: "قريب الصلاحية: " + days + " يوم", className: "warning", days };
+  return { label: "متبقي " + days + " يومًا", className: "good", days };
+}
+
+function renderInventory() {
+  const container = document.getElementById("inventory-list");
+
+  if (!appData.inventory.length) {
+    container.innerHTML = '<div class="empty">لا توجد مواد مسجلة بعد.</div>';
+    return;
+  }
+
+  container.innerHTML = appData.inventory.map(item => {
+    const status = getExpiryStatus(item.expiry);
+
+    return `
+      <div class="inventory-item">
+        <div class="inventory-main">
+          <strong>${escapeHTML(item.name)}</strong>
+          <div class="panel-sub">${escapeHTML(item.category)} · ${escapeHTML(item.qty)} ${escapeHTML(item.unit)}</div>
+          <span class="status ${status.className}">${escapeHTML(status.label)}</span>
+          <div class="panel-sub">الصلاحية: ${escapeHTML(item.expiry || "غير مسجّلة")}</div>
+        </div>
+        <div class="inventory-actions">
+          <button class="action" onclick="changeInventoryQty('${item.id}',-1)">−</button>
+          <button class="action" onclick="changeInventoryQty('${item.id}',1)">＋</button>
+          <button class="action danger-button" onclick="removeInventoryItem('${item.id}')">حذف</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function suggestExpiryForInput() {
+  const category = document.getElementById("item-category").value;
+  const daysByCategory = {
+    "خضروات وفواكه": 4,
+    "ألبان": 5,
+    "بروتين": 2,
+    "حبوب ونشويات": 90,
+    "معلبات": 180,
+    "مجمدات غذائية": 30,
+    "زيوت وخل غذائي": 180,
+    "أخرى": 30
+  };
+
+  const days = daysByCategory[category] || 7;
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+
+  const suggested = [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0")
+  ].join("-");
+
+  document.getElementById("item-expiry").value = suggested;
+
+  alert(
+    "أُدخل تاريخ تذكيري تقريبي بعد " + days +
+    " يومًا. هذا ليس تاريخ صلاحية موثوقًا؛ استبدله بالتاريخ المدوّن على العبوة."
+  );
+}
+
+/* =========================================
+   قائمة المشتريات التلقائية
+========================================= */
+
+function getSuggestedPurchaseQty(item) {
+  const name = normalizeText(item.name);
+
+  if (name.includes("حليب")) return 5;
+  if (name.includes("بيض")) return 2;
+  if (name.includes("أرز")) return 2;
+  if (name.includes("خبز")) return 2;
+  if (name.includes("دجاج")) return 2;
+  if (name.includes("ماء")) return 6;
+
+  return Math.max(1, Math.ceil(Number(item.qty) * 2));
+}
+
+function syncLowStock() {
+  appData.inventory.forEach(item => {
+    const low = Number(item.qty) <= 1;
+    const existing = appData.shopping.find(entry =>
+      entry.sourceId === item.id && entry.autoGenerated
+    );
+
+    if (low && !existing) {
+      appData.shopping.push({
+        id: makeId(),
+        name: item.name,
+        qty: getSuggestedPurchaseQty(item),
+        unit: item.unit,
+        sourceId: item.id,
+        autoGenerated: true,
+        purchased: false
+      });
+    } else if (!low && existing) {
+      appData.shopping = appData.shopping.filter(entry =>
+        !(entry.sourceId === item.id && entry.autoGenerated)
+      );
+    }
+  });
+
+  saveData();
+}
+
+function addPurchaseItem(name, qty, unit) {
+  const cleanName = String(name || "").trim();
+  const amount = Number(qty);
+
+  if (!cleanName || !Number.isFinite(amount) || amount <= 0) {
+    alert("أدخل اسم المادة وكمية صحيحة.");
+    return;
+  }
+
+  const existing = appData.shopping.find(entry =>
+    normalizeText(entry.name) === normalizeText(cleanName) &&
+    entry.unit === unit &&
+    !entry.purchased
+  );
+
+  if (existing) {
+    existing.qty = Number(existing.qty) + amount;
+  } else {
+    appData.shopping.push({
+      id: makeId(),
+      name: cleanName,
+      qty: amount,
+      unit,
+      autoGenerated: false,
+      purchased: false
+    });
+  }
+
+  saveData();
+  renderPurchaseList();
+}
+
+function renderPurchaseList() {
+  const container = document.getElementById("purchase-list");
+  if (!container) return;
+
+  const pending = appData.shopping.filter(entry => !entry.purchased);
+
+  if (!pending.length) {
+    container.innerHTML = '<div class="empty">لا توجد احتياجات شراء حاليًا.</div>';
+    return;
+  }
+
+  container.innerHTML = pending.map(entry => `
+    <div class="inventory-item">
+      <div class="inventory-main">
+        <strong>${escapeHTML(entry.name)}</strong>
+        <div class="panel-sub">الكمية المطلوبة: ${escapeHTML(entry.qty)} ${escapeHTML(entry.unit)}</div>
+        ${entry.autoGenerated ? '<span class="status warning">اقتراح تلقائي بسبب انخفاض المخزون</span>' : ""}
+      </div>
+      <div class="inventory-actions">
+        <button class="action dark" onclick="markPurchased('${entry.id}')">تم الشراء</button>
+        <button class="action danger-button" onclick="deletePurchaseItem('${entry.id}')">حذف</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function markPurchased(id) {
+  const entry = appData.shopping.find(item => item.id === id);
+  if (!entry) return;
+
+  const inventoryItem = appData.inventory.find(item =>
+    normalizeText(item.name) === normalizeText(entry.name) &&
+    item.unit === entry.unit
+  );
+
+  if (inventoryItem) {
+    inventoryItem.qty = Number(inventoryItem.qty) + Number(entry.qty);
+  } else {
+    const product = foodProducts.find(item =>
+      normalizeText(item.name) === normalizeText(entry.name)
+    );
+
+    appData.inventory.push({
+      id: makeId(),
+      name: entry.name,
+      qty: Number(entry.qty),
+      unit: entry.unit,
+      expiry: "",
+      category: product ? product.category : "أخرى",
+      price: product ? product.price : null,
+      addedAt: new Date().toISOString()
+    });
+  }
+
+  appData.shopping = appData.shopping.filter(item => item.id !== id);
+
+  saveData();
+  syncLowStock();
+  renderInventory();
+  renderPurchaseList();
+  renderExpiry();
+  updateDashboard();
+
+  alert("تم نقل المادة إلى المخزون. أضف تاريخ الصلاحية من العبوة.");
+}
+
+function deletePurchaseItem(id) {
+  appData.shopping = appData.shopping.filter(item => item.id !== id);
+  saveData();
+  renderPurchaseList();
+}
+
+/* =========================================
+   المتجر والسلة
+========================================= */
+
+function renderShop() {
+  const container = document.getElementById("shop-products");
+  if (!container) return;
+
+  const search = normalizeText(document.getElementById("shop-search").value);
+  const category = document.getElementById("shop-category").value;
+
+  const products = foodProducts.filter(product => {
+    const matchesSearch = normalizeText(product.name).includes(search);
+    const matchesCategory = category === "all" || product.category === category;
+    return matchesSearch && matchesCategory;
+  });
+
+  document.getElementById("shop-count").textContent =
+    products.length + " منتج";
+
+  if (!products.length) {
+    container.innerHTML = '<div class="empty">لم يتم العثور على منتجات مطابقة.</div>';
+    return;
+  }
+
+  container.innerHTML = products.map(product => `
+    <div class="product-card">
+      <div class="product-emoji">${getFoodEmoji(product.category)}</div>
+      <div class="product-name">${escapeHTML(product.name)}</div>
+      <div class="panel-sub">${escapeHTML(product.category)}</div>
+      <div class="product-price">${product.price.toFixed(3)} ر.ع. / ${escapeHTML(product.unit)}</div>
+      <button class="action dark" onclick="addToCart(${product.id})">＋ أضف إلى السلة</button>
+      <button class="action" onclick="addPurchaseItem('${product.name.replace(/'/g, "\\'")}',1,'${product.unit}')">إضافة لقائمة الاحتياجات</button>
+    </div>
+  `).join("");
+}
+
+function getFoodEmoji(category) {
+  const icons = {
+    "خضروات وفواكه": "🥦",
+    "ألبان": "🥛",
+    "بروتين": "🍗",
+    "حبوب ونشويات": "🌾",
+    "معلبات": "🥫",
+    "مجمدات غذائية": "❄️",
+    "زيوت وخل غذائي": "🫒",
+    "أخرى": "🍯"
+  };
+
+  return icons[category] || "🥗";
+}
+
+function addToCart(productId) {
+  const product = foodProducts.find(item => item.id === productId);
+  if (!product) return;
+
+  const existing = appData.cart.find(item => item.productId === productId);
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    appData.cart.push({
+      productId,
+      name: product.name,
+      qty: 1,
+      unit: product.unit,
+      price: product.price
+    });
+  }
+
+  saveData();
+  renderCart();
+}
+
+function changeCartQty(productId, delta) {
+  const entry = appData.cart.find(item => item.productId === productId);
+  if (!entry) return;
+
+  entry.qty += delta;
+
+  if (entry.qty <= 0) {
+    appData.cart = appData.cart.filter(item => item.productId !== productId);
+  }
+
+  saveData();
+  renderCart();
+}
+
+function clearCart() {
+  if (!appData.cart.length) return;
+  if (!confirm("هل تريد إفراغ سلة المشتريات؟")) return;
+
+  appData.cart = [];
+  saveData();
+  renderCart();
+}
+
+function renderCart() {
+  const container = document.getElementById("shopping-cart");
+  if (!container) return;
+
+  if (!appData.cart.length) {
+    container.innerHTML = '<div class="empty">سلة المشتريات فارغة حاليًا.</div>';
+    return;
+  }
+
+  let total = 0;
+
+  const rows = appData.cart.map(entry => {
+    const subtotal = Number(entry.qty) * Number(entry.price);
+    total += subtotal;
+
+    return `
+      <div class="inventory-item">
+        <div class="inventory-main">
+          <strong>${escapeHTML(entry.name)}</strong>
+          <div class="panel-sub">${entry.price.toFixed(3)} ر.ع. لكل ${escapeHTML(entry.unit)}</div>
+          <b>${subtotal.toFixed(3)} ر.ع.</b>
+        </div>
+        <div class="inventory-actions">
+          <button class="action" onclick="changeCartQty(${entry.productId},-1)">−</button>
+          <strong>${entry.qty}</strong>
+          <button class="action" onclick="changeCartQty(${entry.productId},1)">＋</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  container.innerHTML = rows + `
+    <div class="cart-total">
+      <span>المجموع التقديري</span>
+      <strong>${total.toFixed(3)} ر.ع.</strong>
+    </div>
+  `;
+}
+
+function sendWhatsAppOrder() {
+  if (!appData.cart.length) {
+    alert("أضف منتجات إلى السلة أولًا.");
+    return;
+  }
+
+  const lines = appData.cart.map(entry =>
+    "- " + entry.name + ": " + entry.qty + " " + entry.unit
+  );
+
+  const total = appData.cart.reduce(
+    (sum, entry) => sum + Number(entry.qty) * Number(entry.price), 0
+  );
+
+  const message =
+    "السلام عليكم، أريد الاستفسار عن توفر المواد الغذائية التالية:\n\n" +
+    lines.join("\n") +
+    "\n\nالمجموع التقديري داخل الموقع: " + total.toFixed(3) +
+    " ر.ع.\nيرجى تأكيد الأسعار والتوفر وإمكانية التوصيل. شكرًا.";
+
+  const url = "https://wa.me/" + STORE_PHONE + "?text=" +
+    encodeURIComponent(message);
+
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+/* =========================================
+   اقتراح الوجبات
+========================================= */
+
+const mealDatabase = [
+  {name:"مكبوس الدجاج",type:"popular",ingredients:["دجاج","أرز","طماطم","بصل"],emoji:"🍗"},
+  {name:"الشواء العُماني",type:"popular",ingredients:["لحم","بهارات مشكلة"],emoji:"🥘"},
+  {name:"العصيدة",type:"popular",ingredients:["طحين أبيض","سكر"],emoji:"🍯"},
+  {name:"العرسية",type:"popular",ingredients:["دجاج","أرز"],emoji:"🍚"},
+  {name:"المشاكيك",type:"popular",ingredients:["لحم","ليمون"],emoji:"🍢"},
+  {name:"مكبوس السمك",type:"popular",ingredients:["سمك شعري","أرز","طماطم","بصل"],emoji:"🐟"},
+  {name:"الشوربة بالخضروات",type:"vegetarian",ingredients:["جزر","بطاطس","بصل"],emoji:"🥣"},
+  {name:"سلطة الخضروات",type:"vegetarian",ingredients:["طماطم","خيار","خس"],emoji:"🥗"},
+  {name:"أرز بالخضروات",type:"vegetarian",ingredients:["أرز بسمتي","جزر","بازلاء"],emoji:"🍚"},
+  {name:"مكرونة بصلصة الطماطم",type:"quick",ingredients:["معكرونة سباغيتي","طماطم معلبة","جبن موزاريلا"],emoji:"🍝"},
+  {name:"ساندويتش البيض",type:"quick",ingredients:["بيض","خبز أسمر","طماطم"],emoji:"🥪"},
+  {name:"توست بالجبن",type:"quick",ingredients:["توست حبوب كاملة","جبن شيدر"],emoji:"🧀"},
+  {name:"دجاج بالخضروات",type:"chicken",ingredients:["صدور دجاج","جزر","بروكلي"],emoji:"🍗"},
+  {name:"دجاج بالأرز",type:"chicken",ingredients:["دجاج","أرز بسمتي","بصل"],emoji:"🍛"},
+  {name:"سمك مشوي مع الأرز",type:"fish",ingredients:["سمك شعري","أرز بسمتي","ليمون"],emoji:"🐟"},
+  {name:"سمك بالفرن والخضروات",type:"fish",ingredients:["فيليه سمك","بطاطس","جزر"],emoji:"🐠"}
+];
+
+function suggestMeals() {
+  const style = document.getElementById("meal-style").value;
+  const dislike = normalizeText(appData.family.dislike);
+  const inventoryNames = appData.inventory.map(item => normalizeText(item.name));
+
+  let results = mealDatabase.filter(meal => {
+    if (style !== "all" && meal.type !== style) return false;
+    return !meal.ingredients.some(ingredient => dislike.includes(normalizeText(ingredient)));
+  });
+
+  results = results.map(meal => {
+    const matches = meal.ingredients.filter(ingredient =>
+      inventoryNames.some(name => name.includes(normalizeText(ingredient)) ||
+        normalizeText(ingredient).includes(name))
+    );
+
+    return {
+      ...meal,
+      matches,
+      score: matches.length
+    };
+  }).sort((a, b) => b.score - a.score);
+
+  const container = document.getElementById("meal-results");
+
+  if (!results.length) {
+    container.innerHTML = '<div class="empty">لا توجد اقتراحات مناسبة لهذا الاختيار. جرّب نوعًا آخر.</div>';
+    return;
+  }
+
+  container.innerHTML = results.map(meal => `
+    <div class="inventory-item">
+      <div class="inventory-main">
+        <strong>${meal.emoji} ${escapeHTML(meal.name)}</strong>
+        <div class="panel-sub">المكونات: ${meal.ingredients.map(escapeHTML).join("، ")}</div>
+        <div class="panel-sub">${meal.matches.length
+          ? "مكونات متوفرة في مخزونك: " + meal.matches.map(escapeHTML).join("، ")
+          : "تحقق من المكونات المتوفرة قبل التحضير."}</div>
+      </div>
+      <button class="action dark" onclick="addMealIngredients(${JSON.stringify(meal.ingredients).replace(/"/g, '&quot;')})">أضف النواقص لقائمة الشراء</button>
+    </div>
+  `).join("");
+}
+
+function addMealIngredients(ingredients) {
+  let added = 0;
+
+  ingredients.forEach(name => {
+    const exists = appData.inventory.some(item =>
+      normalizeText(item.name).includes(normalizeText(name)) ||
+      normalizeText(name).includes(normalizeText(item.name))
+    );
+
+    if (!exists) {
+      addPurchaseItem(name, 1, "حبة");
+      added++;
+    }
+  });
+
+  renderPurchaseList();
+  alert(added ? "تمت إضافة المكونات غير الموجودة إلى قائمة الاحتياجات." :
+    "تبدو المكونات مسجلة في المخزون بالفعل.");
+}
+
+/* =========================================
+   الصلاحية ولوحة المعلومات
+========================================= */
+
+function renderExpiry() {
+  const container = document.getElementById("expiry-list");
+  const alerts = document.getElementById("home-alerts");
+
+  const items = appData.inventory
+    .filter(item => item.expiry)
+    .map(item => ({ ...item, status: getExpiryStatus(item.expiry) }))
+    .sort((a, b) => a.status.days - b.status.days);
+
+  const needsReview = items.filter(item => item.status.days <= 3);
+
+  if (!items.length) {
+    container.innerHTML = '<div class="empty">لا توجد تواريخ صلاحية مسجلة.</div>';
+  } else {
+    container.innerHTML = items.map(item => `
+      <div class="inventory-item">
+        <div class="inventory-main">
+          <strong>${escapeHTML(item.name)}</strong>
+          <div class="panel-sub">تاريخ الصلاحية المسجل: ${escapeHTML(item.expiry)}</div>
+          <span class="status ${item.status.className}">${escapeHTML(item.status.label)}</span>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  if (!needsReview.length) {
+    alerts.innerHTML = '<div class="empty">لا توجد مواد مسجلة قريبة الصلاحية حاليًا. تأكد من تسجيل تواريخ المواد.</div>';
+  } else {
+    alerts.innerHTML = needsReview.map(item => `
+      <div class="inventory-item">
+        <div class="inventory-main">
+          <strong>⏳ ${escapeHTML(item.name)}</strong>
+          <div class="panel-sub">${escapeHTML(item.status.label)}</div>
+        </div>
+      </div>
+    `).join("");
+  }
+}
+
+function updateDashboard() {
+  const expiring = appData.inventory.filter(item => {
+    if (!item.expiry) return false;
+    const status = getExpiryStatus(item.expiry);
+    return status.days !== null && status.days <= 3;
+  }).length;
+
+  const low = appData.inventory.filter(item => Number(item.qty) <= 1).length;
+
+  document.getElementById("stat-inventory").textContent = appData.inventory.length;
+  document.getElementById("stat-expiring").textContent = expiring;
+  document.getElementById("stat-low").textContent = low;
+  document.getElementById("stat-family").textContent = appData.family.count;
+
+  document.getElementById("impact-items").textContent = appData.inventory.length;
+  document.getElementById("impact-shopping").textContent =
+    appData.shopping.filter(item => !item.purchased).length;
+  document.getElementById("impact-expiry").textContent = expiring;
+
+  renderExpiry();
+}
+
+/* =========================================
+   تشغيل التطبيق
+========================================= */
+
+function initializeApp() {
+  loadFamilyForm();
+  syncLowStock();
+  renderInventory();
+  renderShop();
+  renderCart();
+  renderPurchaseList();
+  renderExpiry();
+  updateDashboard();
+}
+
+initializeApp();
+</script><style>
+/* تحسينات الإصدار 7.0 */
+.hidden { display: none !important; }
+
+#nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+#nav button {
+  flex: 0 0 auto;
+  border: 1px solid #dce7df;
+  border-radius: 12px;
+  padding: 11px 15px;
+  background: #fff;
+  color: #214c3b;
+  cursor: pointer;
+  font: inherit;
+}
+
+#nav button.active {
+  background: #214c3b;
+  color: #fff;
+}
+
+.page-title,
+.section-heading,
+.inventory-item,
+.inventory-actions,
+.form-actions,
+.cart-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.page-title {
+  margin: 26px 0 18px;
+}
+
+.page-title h2,
+.section-heading h2,
+.panel h3 {
+  margin-top: 0;
+}
+
+.panel-sub {
+  color: #718078;
+  font-size: .9rem;
+  line-height: 1.7;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid #e0e9e2;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 28px rgba(25, 60, 43, .045);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field label {
+  font-weight: 600;
+  font-size: .93rem;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #d6e2d9;
+  border-radius: 11px;
+  background: #fbfdfb;
+  font: inherit;
+  color: #203b2e;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.action,
+.btn-lime,
+.btn-glass {
+  border: 1px solid #d7e3da;
+  border-radius: 11px;
+  padding: 10px 14px;
+  font: inherit;
+  transition: transform .15s ease, opacity .15s ease;
+}
+
+.action:hover,
+.btn-lime:hover,
+.btn-glass:hover {
+  transform: translateY(-1px);
+}
+
+.action.dark {
+  background: #214c3b;
+  border-color: #214c3b;
+  color: white;
+}
+
+.danger-button {
+  color: #a42e2e;
+}
+
+.status {
+  display: inline-block;
+  margin-top: 7px;
+  padding: 5px 9px;
+  border-radius: 8px;
+  font-size: .8rem;
+}
+
+.status.good {
+  color: #22633e;
+  background: #e7f5e9;
+}
+
+.status.warning {
+  color: #80520a;
+  background: #fff2d3;
+}
+
+.status.danger {
+  color: #a12828;
+  background: #ffe7e7;
+}
+
+.status.neutral {
+  color: #53645a;
+  background: #edf1ed;
+}
+
+.inventory-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #e9efea;
+}
+
+.inventory-item:last-child {
+  border-bottom: 0;
+}
+
+.inventory-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.inventory-main strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.inventory-actions {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.stats,
+.content-grid,
+.feature-row,
+.product-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.content-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.feature-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.product-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stat-card,
+.feature,
+.product-card {
+  border: 1px solid #e0e9e2;
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  min-width: 0;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 750;
+  margin: 10px 0;
+  color: #214c3b;
+}
+
+.stat-caption {
+  color: #718078;
+  font-size: .82rem;
+}
+
+.stat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.stat-icon,
+.page-icon {
+  font-size: 1.5rem;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-emoji {
+  font-size: 2rem;
+}
+
+.product-name {
+  font-weight: 700;
+}
+
+.product-price {
+  color: #214c3b;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.product-card button {
+  width: 100%;
+}
+
+.empty {
+  padding: 20px 12px;
+  text-align: center;
+  border-radius: 12px;
+  background: #f5f8f5;
+  color: #718078;
+  line-height: 1.8;
+}
+
+.divider {
+  height: 1px;
+  background: #e4ece5;
+  margin: 20px 0;
+}
+
+.cart-total {
+  padding-top: 16px;
+  margin-top: 12px;
+  border-top: 1px solid #dce7df;
+  font-size: 1.05rem;
+}
+
+.notice {
+  margin-top: 14px;
+  background: #fff6df;
+  color: #755315;
+  border-radius: 11px;
+  padding: 12px;
+  line-height: 1.8;
+  font-size: .9rem;
+}
+
+.tiny-label {
+  font-size: .8rem;
+  color: #728378;
+}
+
+.voice-panel {
+  position: fixed;
+  z-index: 1000;
+  bottom: 18px;
+  left: 18px;
+  width: min(330px, calc(100vw - 36px));
+  padding: 16px;
+  border: 1px solid #dce7df;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 35px #0002;
+}
+
+.voice-panel p {
+  font-size: .9rem;
+  line-height: 1.7;
+}
+
+.voice-panel button {
+  margin: 4px 3px;
+}
+
+.voice-fab {
+  position: fixed;
+  z-index: 999;
+  left: 18px;
+  bottom: 18px;
+  width: 58px;
+  height: 58px;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: #214c3b;
+  box-shadow: 0 5px 20px #0002;
+  font-size: 1.4rem;
+}
+
+.voice-panel[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 800px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .form-grid,
+  .feature-row {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    padding: 15px;
+  }
+
+  .inventory-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .page-title {
+    align-items: flex-start;
+  }
+
+  .hero {
+    gap: 12px;
+  }
+}
+</style>
+
+<!-- مساعد صوتي يظهر في جميع الصفحات -->
+<button class="voice-fab" id="voice-toggle" aria-label="فتح المساعد الصوتي"
+  onclick="toggleVoicePanel()">🎙️</button>
+
+<div class="voice-panel" id="voice-panel" hidden>
+  <h3>🎙️ المساعد الصوتي</h3>
+  <p id="voice-status">اضغط بدء الاستماع واسمح للمتصفح باستخدام المايك عند الطلب.</p>
+  <button class="action dark" id="voice-start" onclick="startVoice()">بدء الاستماع</button>
+  <button class="action" onclick="stopVoice()">إيقاف</button>
+  <button class="action" onclick="toggleVoicePanel()">إغلاق</button>
+  <p class="panel-sub">جرّب: افتح المخزون، افتح المتجر، اعرض الوجبات، أو افتح التنبيهات.</p>
+</div>
+
+<script>
+/* =========================================
+   المساعد الصوتي
+========================================= */
+
+let voiceRecognition = null;
+let voiceActive = false;
+
+function toggleVoicePanel() {
+  const panel = document.getElementById("voice-panel");
+  panel.hidden = !panel.hidden;
+}
+
+function setVoiceStatus(message) {
+  const element = document.getElementById("voice-status");
+  if (element) element.textContent = message;
+}
+
+function startVoice() {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    setVoiceStatus("المتصفح لا يدعم التعرف على الكلام. جرّب أحدث إصدار من Chrome.");
+    return;
+  }
+
+  if (voiceRecognition && voiceActive) {
+    setVoiceStatus("المايك يعمل بالفعل. تكلّم الآن.");
+    return;
+  }
+
+  try {
+    voiceRecognition = new SpeechRecognition();
+    voiceRecognition.lang = "ar-OM";
+    voiceRecognition.continuous = false;
+    voiceRecognition.interimResults = false;
+    voiceRecognition.maxAlternatives = 1;
+
+    voiceRecognition.onstart = () => {
+      voiceActive = true;
+      setVoiceStatus("أستمع إليك الآن... قل أمرًا واضحًا.");
+    };
+
+    voiceRecognition.onresult = event => {
+      const transcript = event.results[0][0].transcript || "";
+      setVoiceStatus("سمعت: " + transcript);
+      processVoiceCommand(transcript);
+    };
+
+    voiceRecognition.onerror = event => {
+      voiceActive = false;
+
+      const messages = {
+        "not-allowed": "لم يسمح المتصفح باستخدام المايك. تحقق من إذن الموقع وإعدادات الجهاز.",
+        "service-not-allowed": "خدمة التعرف على الكلام غير متاحة لهذا المتصفح أو الجهاز.",
+        "no-speech": "لم أسمع كلامًا. حاول مجددًا في مكان هادئ.",
+        "audio-capture": "لم يتم العثور على مايك متاح. تحقق من جهاز الصوت.",
+        "network": "تعذر الاتصال بخدمة التعرف على الكلام. تحقق من الإنترنت.",
+        "language-not-supported": "قد لا تكون اللغة المختارة مدعومة على جهازك."
+      };
+
+      setVoiceStatus(messages[event.error] || "حدث خطأ صوتي: " + event.error);
+    };
+
+    voiceRecognition.onend = () => {
+      voiceActive = false;
+    };
+
+    voiceRecognition.start();
+  } catch (error) {
+    voiceActive = false;
+    setVoiceStatus("تعذر تشغيل المايك. أغلق أي جلسة صوتية أخرى وحاول مجددًا.");
+  }
+}
+
+function stopVoice() {
+  if (voiceRecognition) {
+    try {
+      voiceRecognition.stop();
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
+  voiceActive = false;
+  setVoiceStatus("تم إيقاف الاستماع.");
+}
+
+function processVoiceCommand(rawText) {
+  const text = normalizeText(rawText);
+
+  const commands = [
+    { keys: ["المخزون", "المواد الموجودة", "افتح المخزون"], page: "inventory" },
+    { keys: ["المتجر", "التسوق", "المشتريات", "افتح المتجر"], page: "shopping" },
+    { keys: ["الوجبات", "اقترح وجبة", "افتح الوجبات"], page: "meals" },
+    { keys: ["التنبيهات", "الصلاحية", "تاريخ الصلاحية"], page: "calendar" },
+    { keys: ["الأسرة", "بيانات الأسرة"], page: "family" },
+    { keys: ["الرئيسية", "الصفحة الرئيسية"], page: "home" },
+    { keys: ["عن المشروع", "فكرة المشروع"], page: "about" },
+    { keys: ["قياس الأثر", "الأثر البيئي"], page: "impact" }
+  ];
+
+  for (const command of commands) {
+    if (command.keys.some(key => text.includes(normalizeText(key)))) {
+      showPage(command.page);
+      setVoiceStatus("تم تنفيذ الأمر: فتح " + command.page);
+      return;
+    }
+  }
+
+  if (text.includes("أضف") && text.includes("المخزون")) {
+    showPage("inventory");
+    setVoiceStatus("افتح نموذج المخزون وأدخل اسم المادة وكميتها وتاريخ صلاحيتها.");
+    return;
+  }
+
+  setVoiceStatus("لم أفهم الأمر. جرّب: افتح المخزون أو افتح المتجر أو اعرض الوجبات.");
+}
+
+/* =========================================
+   تذكيرات داخل الموقع
+========================================= */
+
+function showExpiryReminder() {
+  const expiring = appData.inventory.filter(item => {
+    if (!item.expiry) return false;
+    const status = getExpiryStatus(item.expiry);
+    return status.days !== null && status.days >= 0 && status.days <= 3;
+  });
+
+  if (!expiring.length) return;
+
+  const names = expiring.slice(0, 5).map(item => item.name).join("، ");
+
+  console.info("تذكير الصلاحية:", names);
+
+  if (document.visibilityState === "visible") {
+    setVoiceStatusIfAvailable(
+      "تذكير: راجع تواريخ صلاحية " + names
+    );
+  }
+}
+
+function setVoiceStatusIfAvailable(message) {
+  const element = document.getElementById("voice-status");
+  if (element && !document.getElementById("voice-panel").hidden) {
+    element.textContent = message;
+  }
+}
+
+function requestBrowserNotificationPermission() {
+  if (!("Notification" in window)) {
+    alert("الإشعارات غير مدعومة في هذا المتصفح.");
+    return;
+  }
+
+  Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+      alert("تم السماح بالإشعارات لهذا الموقع. ظهورها يعتمد على دعم المتصفح وإعدادات الجهاز.");
+      sendBrowserReminder();
+    } else {
+      alert("لم يتم السماح بالإشعارات. يمكنك تغيير الإذن من إعدادات الموقع في المتصفح.");
+    }
+  }).catch(() => {
+    alert("تعذر طلب إذن الإشعارات. تحقق من إعدادات المتصفح.");
+  });
+}
+
+function sendBrowserReminder() {
+  if (!("Notification" in window) || Notification.permission !== "granted") {
+    return;
+  }
+
+  const items = appData.inventory.filter(item => {
+    if (!item.expiry) return false;
+    const status = getExpiryStatus(item.expiry);
+    return status.days !== null && status.days >= 0 && status.days <= 3;
+  });
+
+  if (!items.length) return;
+
+  new Notification("مطبخي الذكي: تذكير بالصلاحية", {
+    body: "راجع المواد القريبة من الصلاحية: " +
+      items.slice(0, 4).map(item => item.name).join("، ")
+  });
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    renderExpiry();
+    updateDashboard();
+    showExpiryReminder();
+  }
+});
+
+/* =========================================
+   إضافة زر طلب الإشعارات
+========================================= */
+
+(function addNotificationButton() {
+  const panel = document.getElementById("page-calendar");
+  if (!panel) return;
+
+  const box = document.createElement("div");
+  box.className = "panel";
+  box.style.marginTop = "15px";
+
+  const title = document.createElement("h3");
+  title.textContent = "إعداد الإشعارات";
+
+  const description = document.createElement("p");
+  description.className = "panel-sub";
+  description.textContent =
+    "يمكنك طلب إذن الإشعارات من المتصفح. هذا وحده لا يضمن تشغيل تنبيهات مجدولة عندما يكون الموقع مغلقًا.";
+
+  const button = document.createElement("button");
+  button.className = "action dark";
+  button.textContent = "السماح بالإشعارات";
+  button.addEventListener("click", requestBrowserNotificationPermission);
+
+  box.append(title, description, button);
+  panel.appendChild(box);
+})();
+
+/* =========================================
+   حفظ آمن عند إغلاق الصفحة
+========================================= */
+
+window.addEventListener("pagehide", () => {
+  saveData();
+});
+
+</script>
+</main>
+
+<footer class="shell" style="padding:30px 0;text-align:center;color:#718078">
+  <p>مطبخي الذكي 7.0 — ابتكار صغير، أثر كبير 🌱</p>
+  <p>أداة تنظيم ومساعدة، وليست بديلًا عن التحقق من سلامة الطعام وتواريخ العبوات.</p>
+</footer>
+
+</body>
+</html>
